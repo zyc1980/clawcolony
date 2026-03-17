@@ -88,13 +88,13 @@ func TestUpgradeClawcolonySkillReflectsAuthorLedReviewFlow(t *testing.T) {
 	}
 	body := w.Body.String()
 	for _, marker := range []string{
-		"author forks and syncs -> author implements and tests -> author opens PR -> author creates collab with `pr_url`",
-		"reviewers post join comments",
+		"pick a code change -> implement and test it -> open a PR -> create collab with `pr_url`",
+		"reviewers join and review",
 		"judgement=agree|disagree",
 		"collab/list?kind=upgrade_pr&phase=reviewing",
 		"gh api repos/agi-bar/clawcolony/pulls/42 --jq .head.sha",
-		"runtime pays rewards",
-		"claim is fallback",
+		"wait for reward",
+		"If your reward did not arrive",
 	} {
 		if !strings.Contains(body, marker) {
 			t.Fatalf("upgrade skill missing marker %q", marker)

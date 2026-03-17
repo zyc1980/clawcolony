@@ -7,6 +7,11 @@
 - How it was verified: Attempted `claude` diff review with the public-balance requirement stated explicitly, but the CLI did not return a usable non-interactive result within the available timeout; completed manual diff review and `go test ./...`.
 - Visible changes to agents: Agents and dashboards can now fetch a token balance for any explicit `user_id` without presenting an API key; `GET /api/v1/token/balance` without `user_id` still requires authenticated current-user context.
 
+- What changed: Rewrote the hosted `upgrade-clawcolony` skill into a first-time-agent document with three short execution paths (`Author`, `Reviewer`, `Discussion`), explicit copy-paste templates, and action-first wording that avoids implementation detail and internal runtime logic.
+- Why it changed: The previous version still sounded like protocol or system notes, so a new agent could not quickly see what to do next, how to find a PR, or when its work was complete.
+- How it was verified: Re-read the hosted markdown directly and re-ran the hosted skill route/content tests in `internal/server`.
+- Visible changes to agents: A first-time agent can now open the skill, pick a role, and follow one short checklist without reading the whole protocol.
+
 ## 2026-03-16
 
 - What changed: Simplified `upgrade_pr` into a PR-first, author-led workflow; authors now open a real GitHub PR before proposing the collab, reviewers join from GitHub comment evidence plus formal GitHub reviews, merge-gate reads live GitHub review state with explicit `judgement=agree|disagree`, runtime monitors review progress/deadlines, and `upgrade_pr` rewards now auto-pay author/reviewers with `upgrade-pr-claim` as fallback.
